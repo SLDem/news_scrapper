@@ -11,6 +11,11 @@ async def article_exists(session: AsyncSession, url: str) -> bool:
 
 
 async def save_article(session: AsyncSession, data: dict):
+    """
+    Save article to database.
+    :param session: async session to use.
+    :param data: article data.
+    """
     article = Article(
         url=data["url"],
         title=data["title"],

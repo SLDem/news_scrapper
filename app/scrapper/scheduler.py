@@ -13,6 +13,10 @@ logger = logging.getLogger(__name__)
 
 
 async def scrape_articles(initial=False):
+    """
+    Start scraping articles from web.
+    :param initial: is it the initial scrape.
+    """
     logger.info("Starting article scrape")
     try:
         urls = await get_article_links()
@@ -39,6 +43,9 @@ async def scrape_articles(initial=False):
 
 
 def start_scheduler():
+    """
+    Start job scheduler for articles.
+    """
     scheduler = AsyncIOScheduler()
     scheduler.add_job(scrape_articles, 'interval', minutes=config.SCRAPE_INTERVAL)
     scheduler.start()

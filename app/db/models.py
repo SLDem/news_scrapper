@@ -1,10 +1,13 @@
 from sqlalchemy import Column, String, Text, DateTime, Integer, JSON
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
 
 
 class Article(Base):
+    """
+    Main model for saving articles.
+    """
     __tablename__ = "articles"
 
     url = Column(String, primary_key=True, index=True)

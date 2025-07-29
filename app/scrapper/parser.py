@@ -4,6 +4,12 @@ from bs4 import BeautifulSoup
 
 
 def parse_article(html: str, url: str) -> dict:
+    """
+    Parse html of the article into python readable format.
+    :param html: html of the article.
+    :param url: url of the article.
+    :return: article object as dict.
+    """
     soup = BeautifulSoup(html, "html.parser")
 
     if soup.find("div", class_="article-barrier"):

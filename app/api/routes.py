@@ -14,6 +14,9 @@ router = APIRouter()
 
 
 async def get_session() -> AsyncSession:
+    """
+    Gets async session
+    """
     async with async_session() as session:
         yield session
 
@@ -24,6 +27,13 @@ async def get_articles(
     limit: int = Query(10, le=100),
     session: AsyncSession = Depends(get_session)
 ):
+    """
+    Displays articles with optional params, such as author, limit of displayed articles.
+    :param author: author to filter articles by.
+    :param limit: limit articles number.
+    :param session: async session to use.
+    :return: json of articles.
+    """
     query = select(Article)
     if author:
         query = query.where(Article.author == author)
@@ -50,5 +60,9 @@ async def get_articles(
 
 @router.get("/scrape-now")
 async def trigger_scrape():
+    """
+    Start scraping articles.
+    :return: message with start confirmation.
+    """
     await scrape_articles(initial=True)
     return {"status": "Scraping triggered"}
