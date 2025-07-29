@@ -1,0 +1,25 @@
+services:
+  scraper:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://user:pass@db:5432/ft_news
+      - PYTHONPATH=/app
+    restart: always
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: ft_news
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  pgdata:
